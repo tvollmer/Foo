@@ -15,12 +15,16 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+            loggingSql = true
+            formatSql = true
         }
     }
     test {
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE"
+            loggingSql = true
+            formatSql = true
         }
     }
     production {
