@@ -3,8 +3,10 @@ import com.foo.*
 println ""
 println "Initial cascading insert"
 println "=============="
-def ipAddrs = [] << new IpAddress(ipAddr:'10.0.0.1') << new IpAddress(ipAddr:'10.0.0.2')
-def customerOrder = new CustomerOrder(customerName:'Bar Customer',ipAddresses:ipAddrs).save(flush:true)
+def customerOrder = new CustomerOrder(customerName:'Bar Customer')
+customerOrder.addToIpAddresses(new IpAddress(ipAddr:'10.0.0.1'))
+customerOrder.addToIpAddresses(new IpAddress(ipAddr:'10.0.0.2'))
+customerOrder.save(flush:true)
 println customerOrder
 
 println ""
@@ -24,7 +26,7 @@ println "=============="
 CustomerOrder.withTransaction {
   customerOrder.customerName = 'Quox Customer'
   customerOrder.save(flush:true)
-  customerOrder.ipAddresses << new IpAddress(ipAddr:'10.0.0.10')
+  customerOrder.addToIpAddresses(new IpAddress(ipAddr:'10.0.0.10'))
   customerOrder = customerOrder.save(flush:true)
 }
 println customerOrder

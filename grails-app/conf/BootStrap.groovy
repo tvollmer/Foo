@@ -6,9 +6,10 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        def ipAddrs = [] << new IpAddress(ipAddr:'10.0.0.1') << new IpAddress(ipAddr:'10.0.0.2')
-        println "ipAddrs:$ipAddrs"
-        def custOrder = new CustomerOrder(customerName:'Foo Customer',ipAddresses:ipAddrs).save(flush:true)
+        def custOrder = new CustomerOrder(customerName:'Foo Customer')
+		custOrder.addToIpAddresses(new IpAddress(ipAddr:'10.0.0.1'))
+		custOrder.addToIpAddresses(new IpAddress(ipAddr:'10.0.0.2'))
+		custOrder.save(flush:true)
         println "$custOrder"
         
     }
